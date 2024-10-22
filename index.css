@@ -1,0 +1,91 @@
+:root {
+  /* colors */
+  --border-color-one: #dbdbdb;
+  --blue-one: #0095f6;
+  --blue-two: #1877f2;
+  --text-color-one: #000000;
+  --text-color-two: #778592;
+  --link-color-one: #2995f6;
+  --link-color-two: #8a7e77;
+  --white-one: #fff;
+
+  /* fonts */
+  --poppins-thin: "Poppins", sans-serif;
+  --system-one: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 48px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  outline: 1px solid #ddd;
+  align-self: center;
+  margin-top: 12px;
+}
+
+.section-one {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  padding: 24px;
+}
+
+.section-one-header {
+  display: flex;
+  background-color: orange;
+  align-items: center;
+  flex-direction: column;
+}
+
+.section-one-header-title {
+  height: 65px;
+}
+
+.section-one-header-instruction {
+  font-size: 20px;
+  color: var(--text-color-two);
+  font-weight: bold;
+  font-family: var(--system-one);
+}
+
+.section-one-header-action-button {
+  background-color: var(--blue-one);
+  width: 100%;
+  padding: 8px 0;
+  border-radius: 4px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  column-gap: 12px;
+  align-items: center;
+}
+
+.section-one-header-action-button-instruction {
+  font-family: var(--system-one);
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.section-one-header-action-button:hover {
+  background-color: var(--blue-two);
+  cursor: pointer;
+}
+
+.section-one-header-action-button-icon {
+  width: 18px;
+}
+
+.footer {
+}

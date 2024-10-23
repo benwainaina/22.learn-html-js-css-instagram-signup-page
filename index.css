@@ -220,6 +220,10 @@ body {
   column-gap: 6px;
 }
 
+.section-two-stores-links a {
+  text-decoration: none;
+}
+
 .section-two-stores-links img {
   height: 40px;
 }
@@ -250,4 +254,12 @@ body {
   color: var(--link-color-two);
   font-family: var(--system-one);
   font-size: 13px;
+}
+
+/* shared styles */
+.error {
+  font-family: var(--system-one);
+  font-size: 13px;
+  color: #ea1c1c;
+  display: none;
 }

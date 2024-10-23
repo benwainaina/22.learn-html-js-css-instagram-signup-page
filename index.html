@@ -27,8 +27,7 @@
           <p class="section-one-header-instruction">
             Sign up to see photos and videos from your friends.
           </p>
-          <div class="section-one-header-action-button">
-            <!-- on click redirec the user to https://www.facebook.com/dialog/oauth -->
+          <div class="section-one-header-action-button" id="loginWithFacebook">
             <img
               class="section-one-header-action-button-icon"
               src="/assets/facebook-icon.png"
@@ -50,14 +49,33 @@
               type="text"
               name="mobile_or_email"
               placeholder="Mobile Number or Email"
+              id="mobileOrEmail"
             />
-            <!-- Another account is using the same email. -->
-            <input type="password" name="password" placeholder="Password" />
-            <!-- Your password can’t have parts of your name. Please create a new one. -->
-            <!-- This password is too easy to guess. Please create a new one. -->
-            <input type="text" name="fullname" placeholder="Full Name" />
-            <input type="text" name="username" placeholder="Username" />
-            <!-- This username isn't available. Please try another. -->
+            <span class="error" id="mobileOrEmailError"
+              >Another account is using the same email.</span
+            >
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              id="password"
+            />
+            <span class="error" id="passwordError"></span>
+            <input
+              type="text"
+              name="fullname"
+              placeholder="Full Name"
+              id="fullName"
+            />
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              id="username"
+            />
+            <span class="error" id="usernameError">
+              This username isn't available. Please try another.
+            </span>
           </div>
           <div class="section-one-form-instructions">
             <p>
@@ -95,14 +113,24 @@
         <div class="section-two-stores">
           <span class="section-two-stores-instruction">Get the app.</span>
           <div class="section-two-stores-links">
-            <img
-              src="/assets/download-on-the-app-store.png"
-              alt="download-on-the-app-store"
-            />
-            <img
-              src="/assets/get-it-on-google-play.png"
-              alt="get-it-on-google-play"
-            />
+            <a
+              href="https://apps.apple.com/app/instagram/id389801252?ct=igweb.signupPage.badge&mt=8&pt=428156&vt=lo"
+              target="_blank"
+            >
+              <img
+                src="/assets/download-on-the-app-store.png"
+                alt="download-on-the-app-store"
+              />
+            </a>
+            <a
+              href="https://play.google.com/store/apps/details?id=com.instagram.android&referrer=ig_mid%3DC7A23F55-7740-4D1F-B31E-620DF08624B4%26utm_campaign%3DsignupPage%26utm_content%3Dlo%26utm_source%3Dinstagramweb%26utm_medium%3Dbadge"
+              target="_blank"
+            >
+              <img
+                src="/assets/get-it-on-google-play.png"
+                alt="get-it-on-google-play"
+              />
+            </a>
           </div>
         </div>
       </div>

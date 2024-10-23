@@ -186,7 +186,7 @@ body {
 .section-one-form-action-button {
   background-color: var(--blue-one);
   width: 100%;
-  padding: 8px 0;
+  padding: 10px 0;
   border-radius: 4px;
   color: white;
   display: flex;
@@ -197,6 +197,7 @@ body {
   font-weight: bold;
   font-size: 14px;
   opacity: 1;
+  border: none;
 }
 
 .section-one-form-action-button.disabled {

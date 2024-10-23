@@ -14,10 +14,17 @@ document.getElementById("loginWithFacebook").addEventListener("click", () => {
   window.location = "https://www.facebook.com/dialog/oauth";
 });
 
+/**
+ * global variables
+ */
 const FORM_FIELDS = {};
 const FORM_FIELD_ERRORS = {};
 const ERROR_IMAGE = "/assets/close-error.png";
 const SUCCESS_IMAGE = "/assets/successful-input.png";
+
+/**
+ * html element references
+ */
 const mobileOrEmailErrorElement = document.getElementById("mobileOrEmailError");
 const mobileOrEmailSuccessOrErrorImageElement = document.getElementById(
   "mobileOrEmailSuccessOrErrorImage"
@@ -34,7 +41,6 @@ const fullNameErrorOrSuccessImageElement = document.getElementById(
   "fullNameErrorOrSuccessImage"
 );
 const submitFormButtonElement = document.getElementById("submitFormButton");
-
 const mobileOrEmailInputField = document.getElementById("mobileOrEmail");
 const passwordInputField = document.getElementById("password");
 const fullNameInputField = document.getElementById("fullName");
@@ -51,6 +57,12 @@ const formFieldIds = [
 ];
 
 /**
+ *
+ * EVENT LISTENERS
+ *
+ */
+
+/**
  * listen for form fields changes
  */
 formFieldIds.forEach((inputFieldElement) => {
@@ -62,17 +74,15 @@ formFieldIds.forEach((inputFieldElement) => {
 /**
  * listen for regenerating a new username
  */
-document
-  .getElementById("usernameErrorOrRegenerateImage")
-  .addEventListener("click", (ev) => {
-    if (FORM_FIELD_ERRORS["username"]) {
-      const randomUsername = `username-${Math.round(
-        Math.random() * 1000
-      ).toString()}`;
-      document.getElementById("username").value = randomUsername;
-      validateUsername(randomUsername);
-    }
-  });
+usernameErrorOrRegenerateImageElement.addEventListener("click", (ev) => {
+  if (FORM_FIELD_ERRORS["username"]) {
+    const randomUsername = `username-${Math.round(
+      Math.random() * 1000
+    ).toString()}`;
+    document.getElementById("username").value = randomUsername;
+    validateUsername(randomUsername);
+  }
+});
 
 /**
  * listen for clearing input fields when an error occurs
@@ -128,6 +138,10 @@ const handleFormFieldChange = (fieldName, value) => {
   validateWholeForm();
 };
 
+/**
+ * FORM VALIDATORS
+ */
+
 const validateWholeForm = () => {
   /**
    * check if there is an error in any form field and update action
@@ -163,9 +177,6 @@ const validateWholeForm = () => {
   }
 };
 
-/**
- * validate individual form fields
- */
 const validateMobileOrEmail = (value) => {
   if (httpMockCheckIfEmailExists()) {
     mobileOrEmailSuccessOrErrorImageElement.src = ERROR_IMAGE;

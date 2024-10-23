@@ -45,34 +45,68 @@
             <div class="section-one-form-divider-horizontal_line"></div>
           </div>
           <div class="section-one-form-fields">
-            <input
-              type="text"
-              name="mobile_or_email"
-              placeholder="Mobile Number or Email"
-              id="mobileOrEmail"
-            />
-            <span class="error" id="mobileOrEmailError"
-              >Another account is using the same email.</span
-            >
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              id="password"
-            />
+            <div class="section-one-form-fields-field_wrapper">
+              <input
+                type="text"
+                name="mobile_or_email"
+                placeholder="Mobile Number or Email"
+                id="mobileOrEmail"
+              />
+              <img
+                alt=""
+                class="success-or-error-image"
+                id="mobileOrEmailSuccessOrErrorImage"
+              />
+            </div>
+            <span class="error" id="mobileOrEmailError"></span>
+
+            <div class="section-one-form-fields-field_wrapper">
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                id="password"
+              />
+              <img
+                alt=""
+                class="success-or-error-image"
+                id="passwordErrorOrSuccessImage"
+              />
+              <span
+                id="showPasswordTrigger"
+                class="section-one-form-fields-field_wrapper-show_password"
+              ></span>
+            </div>
             <span class="error" id="passwordError"></span>
-            <input
-              type="text"
-              name="fullname"
-              placeholder="Full Name"
-              id="fullName"
-            />
-            <input
-              type="text"
-              name="username"
-              placeholder="Username"
-              id="username"
-            />
+
+            <div class="section-one-form-fields-field_wrapper">
+              <input
+                type="text"
+                name="fullname"
+                placeholder="Full Name"
+                id="fullName"
+              />
+              <img
+                alt=""
+                class="success-or-error-image"
+                id="fullNameErrorOrSuccessImage"
+              />
+            </div>
+
+            <div class="section-one-form-fields-field_wrapper">
+              <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                id="username"
+              />
+
+              <img
+                alt=""
+                class="success-or-error-image"
+                id="usernameErrorOrRegenerateImage"
+              />
+            </div>
             <span class="error" id="usernameError">
               This username isn't available. Please try another.
             </span>
@@ -167,3 +201,10 @@
 </html>
 
 <!-- Error messages -->
+
+<!-- TODOs -->
+<!-- Show the option to clear an errored out field -->
+<!-- outline the errored out input field with red -->
+<!-- add show password trigger that has opacity of .5 -->
+<!-- show a correct input field check image -->
+<!-- show guessing by "recycle" input field check image -->

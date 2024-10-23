@@ -14,6 +14,7 @@
   --gray-two: #ddd;
   --gray-three: #9f9f9f;
   --gray-four: #737373;
+  --red-one: #ff3040;
 
   /* fonts */
   --poppins-thin: "Poppins", sans-serif;
@@ -128,11 +129,41 @@ body {
   row-gap: 6px;
 }
 
+.section-one-form-fields-field_wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  min-height: 44px;
+}
+
+#passwordErrorOrSuccessImage {
+  right: 44px;
+  display: none;
+}
+
+.section-one-form-fields-field_wrapper-show_password {
+  font-family: var(--system-one);
+  z-index: 10;
+  position: absolute;
+  right: 0;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.section-one-form-fields-field_wrapper-show_password:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
 .section-one-form-fields input {
   border: 1px solid var(--border-color-one);
   background-color: var(--gray-one);
   padding: 12px 6px;
   border-radius: 2px;
+  width: 100%;
+  position: absolute;
 }
 
 .section-one-form-fields input:focus {
@@ -260,6 +291,13 @@ body {
 .error {
   font-family: var(--system-one);
   font-size: 13px;
-  color: #ea1c1c;
+  color: var(--red-one);
   display: none;
+  margin-left: 5px;
+}
+
+.success-or-error-image {
+  width: 32px;
+  position: absolute;
+  right: 0;
 }

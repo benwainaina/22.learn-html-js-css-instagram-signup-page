@@ -15,21 +15,86 @@ document.getElementById("loginWithFacebook").addEventListener("click", () => {
 });
 
 const FORM_FIELDS = {};
-const FORM_ERRORS = {};
+const FORM_FIELD_ERRORS = {};
+const ERROR_IMAGE = "/assets/close-error.png";
+const SUCCESS_IMAGE = "/assets/successful-input.png";
 const mobileOrEmailErrorElement = document.getElementById("mobileOrEmailError");
+const mobileOrEmailSuccessOrErrorImageElement = document.getElementById(
+  "mobileOrEmailSuccessOrErrorImage"
+);
 const passwordErrorElement = document.getElementById("passwordError");
+const passwordErrorOrSuccessImageElement = document.getElementById(
+  "passwordErrorOrSuccessImage"
+);
 const usernameErrorElement = document.getElementById("usernameError");
+const usernameErrorOrRegenerateImageElement = document.getElementById(
+  "usernameErrorOrRegenerateImage"
+);
+const fullNameErrorOrSuccessImageElement = document.getElementById(
+  "fullNameErrorOrSuccessImage"
+);
 
-const formFieldIds = ["mobileOrEmail", "password", "fullName", "username"];
+const mobileOrEmailInputField = document.getElementById("mobileOrEmail");
+const passwordInputField = document.getElementById("password");
+const fullNameInputField = document.getElementById("fullName");
+const usernameInputField = document.getElementById("username");
+const showPasswordTriggerElement = document.getElementById(
+  "showPasswordTrigger"
+);
+
+const formFieldIds = [
+  mobileOrEmailInputField,
+  passwordInputField,
+  fullNameInputField,
+  usernameInputField,
+];
+
 /**
  * listen for form fields changes
  */
-formFieldIds.forEach((fieldId) => {
-  document
-    .getElementById(fieldId)
-    .addEventListener("keyup", (ev) =>
-      handleFormFieldChange(ev.target.name, ev.target.value)
-    );
+formFieldIds.forEach((inputFieldElement) => {
+  inputFieldElement.addEventListener("keyup", (ev) =>
+    handleFormFieldChange(ev.target.name, ev.target.value)
+  );
+});
+
+/**
+ * listen for regenerating a new username
+ */
+document
+  .getElementById("usernameErrorOrRegenerateImage")
+  .addEventListener("click", (ev) => {
+    if (FORM_FIELD_ERRORS["username"]) {
+      const randomUsername = `username-${Math.round(
+        Math.random() * 1000
+      ).toString()}`;
+      document.getElementById("username").value = randomUsername;
+      validateUsername(randomUsername);
+    }
+  });
+
+/**
+ * listen for clearing input fields when an error occurs
+ */
+mobileOrEmailSuccessOrErrorImageElement.addEventListener("click", () => {
+  if (FORM_FIELD_ERRORS["mobile_or_email"]) {
+    mobileOrEmailInputField.value = "";
+    mobileOrEmailSuccessOrErrorImageElement.src = "";
+    toggelElementVisibility(mobileOrEmailErrorElement, "none");
+  }
+});
+
+/**
+ * trigger show password
+ */
+showPasswordTriggerElement.addEventListener("click", (ev) => {
+  if (ev.target.innerText.toLowerCase() === "show") {
+    showPasswordTriggerElement.innerHTML = "hide";
+    passwordInputField.setAttribute("type", "text");
+  } else {
+    showPasswordTriggerElement.innerHTML = "show";
+    passwordInputField.setAttribute("type", "password");
+  }
 });
 
 /**
@@ -37,10 +102,9 @@ formFieldIds.forEach((fieldId) => {
  */
 const handleFormFieldChange = (fieldName, value) => {
   FORM_FIELDS[fieldName] = value;
-  console.log("FORM_FIELDS", FORM_FIELDS);
   switch (fieldName) {
     case "mobile_or_email":
-      validateEmail(value);
+      validateMobileOrEmail(value);
       break;
     case "password":
       validatePassword(value);
@@ -57,16 +121,46 @@ const handleFormFieldChange = (fieldName, value) => {
 /**
  * validate individual form fields
  */
-const validateEmail = (value) => {
-  console.log("validateEmail.value", value);
+const validateMobileOrEmail = (value) => {
+  if (httpMockCheckIfEmailExists()) {
+    mobileOrEmailSuccessOrErrorImageElement.src = ERROR_IMAGE;
+    toggelElementVisibility(mobileOrEmailErrorElement, "block");
+    appendErrorMessageToElement(
+      mobileOrEmailErrorElement,
+      "Another account is using the same email."
+    );
+    FORM_FIELD_ERRORS["mobile_or_email"] = true;
+  } else {
+    mobileOrEmailSuccessOrErrorImageElement.src = value ? SUCCESS_IMAGE : "";
+    toggelElementVisibility(mobileOrEmailErrorElement, "none");
+    FORM_FIELD_ERRORS["mobile_or_email"] = false;
+  }
 };
 
 const validateFullname = (value) => {
-  console.log("validateFullname.value", value);
-  validatePassword();
+  /**
+   * add any fullname validations that are needed here
+   */
+  fullNameErrorOrSuccessImageElement.src = "";
+
+  /**
+   * now, because password validation depends on the fullname value,
+   * a call is made here with the most recent value of the password
+   * from from fields
+   */
+  validatePassword(FORM_FIELDS["password"]);
 };
 
 const validatePassword = (value) => {
+  /**
+   * if the password has a value, then we can display the option to show
+   * it
+   */
+  if (value) {
+    showPasswordTriggerElement.style.display = "block";
+    showPasswordTriggerElement.innerText = "show";
+  }
+
   const mockObviousPasswords = ["1", "1234", "password"];
   let errorMessage;
 
@@ -94,9 +188,13 @@ const validatePassword = (value) => {
   }
   if (errorMessage) {
     toggelElementVisibility(passwordErrorElement, "block");
+    passwordErrorOrSuccessImageElement.src = ERROR_IMAGE;
     appendErrorMessageToElement(passwordErrorElement, errorMessage);
+    FORM_FIELD_ERRORS["password"] = true;
   } else {
     toggelElementVisibility(passwordErrorElement, "none");
+    passwordErrorOrSuccessImageElement.src = value ? SUCCESS_IMAGE : "";
+    FORM_FIELD_ERRORS["password"] = false;
   }
 
   /**
@@ -105,7 +203,16 @@ const validatePassword = (value) => {
 };
 
 const validateUsername = (value) => {
-  console.log("validateUsername.value", value);
+  if (httpMockCheckIfUsernameExists()) {
+    toggelElementVisibility(usernameErrorElement, "block");
+    usernameErrorOrRegenerateImageElement.src =
+      "/assets/regenerate-new-username.png";
+    FORM_FIELD_ERRORS["username"] = true;
+  } else {
+    toggelElementVisibility(usernameErrorElement, "none");
+    usernameErrorOrRegenerateImageElement.src = value ? SUCCESS_IMAGE : "";
+    FORM_FIELD_ERRORS["username"] = false;
+  }
 };
 
 /**
@@ -119,9 +226,15 @@ const appendErrorMessageToElement = (element, message) => {
   element.innerText = message;
 };
 
+const hideMobileOrEmailErrors = () => {};
+
 /**
  * Mock HTTP endpoints
  */
-const httpMockCheckIfEmailExists = (email) => {};
+const httpMockCheckIfEmailExists = (email) => {
+  return Math.random() * 10 > 5 ? true : false;
+};
 
-const httpMockCheckIfUsernameExists = (username) => {};
+const httpMockCheckIfUsernameExists = (username) => {
+  return Math.random() * 10 < 5 ? true : false;
+};

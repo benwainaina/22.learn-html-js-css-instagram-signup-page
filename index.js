@@ -33,6 +33,7 @@ const usernameErrorOrRegenerateImageElement = document.getElementById(
 const fullNameErrorOrSuccessImageElement = document.getElementById(
   "fullNameErrorOrSuccessImage"
 );
+const submitFormButtonElement = document.getElementById("submitFormButton");
 
 const mobileOrEmailInputField = document.getElementById("mobileOrEmail");
 const passwordInputField = document.getElementById("password");
@@ -98,6 +99,14 @@ showPasswordTriggerElement.addEventListener("click", (ev) => {
 });
 
 /**
+ * submit signup form handler
+ */
+submitFormButtonElement.addEventListener("click", () => {
+  console.log("FORM", FORM_FIELDS);
+  alert("And you are not part of instagram!");
+});
+
+/**
  * Common method to handle form field changes
  */
 const handleFormFieldChange = (fieldName, value) => {
@@ -115,6 +124,42 @@ const handleFormFieldChange = (fieldName, value) => {
     case "username":
       validateUsername(value);
       break;
+  }
+  validateWholeForm();
+};
+
+const validateWholeForm = () => {
+  /**
+   * check if there is an error in any form field and update action
+   * button disbled status accordingly
+   */
+  let formIsValid = true;
+
+  /**
+   * check if the user has input all the form fields
+   */
+  if (Object.keys(FORM_FIELDS).length !== 4) {
+    formIsValid = false;
+  }
+
+  if (formIsValid) {
+    /**
+     * if the user has input all the required fields, which deem
+     * the form as valid, proceed to check if there is an error
+     * in any of the form fields
+     */
+    for (const key in FORM_FIELD_ERRORS) {
+      if (FORM_FIELD_ERRORS[key]) {
+        formIsValid = false;
+        break;
+      }
+    }
+  }
+
+  if (formIsValid) {
+    submitFormButtonElement.removeAttribute("disabled");
+  } else {
+    submitFormButtonElement.setAttribute("disabled", true);
   }
 };
 

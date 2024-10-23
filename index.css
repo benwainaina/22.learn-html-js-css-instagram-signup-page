@@ -200,7 +200,7 @@ body {
   border: none;
 }
 
-.section-one-form-action-button.disabled {
+.section-one-form-action-button[disabled] {
   opacity: 0.7;
   background-color: var(--blue-one) !important;
   cursor: default !important;

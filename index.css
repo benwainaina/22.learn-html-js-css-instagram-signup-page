@@ -272,6 +272,10 @@ body {
 .footer-links {
   display: flex;
   column-gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  row-gap: 12px;
 }
 
 .footer-links a {
@@ -313,4 +317,10 @@ body {
   width: 32px;
   position: absolute;
   right: 0;
+}
+
+@media only screen and (max-width: 564px) {
+  .footer {
+    padding-bottom: 0;
+  }
 }

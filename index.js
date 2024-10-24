@@ -21,6 +21,14 @@ const FORM_FIELDS = {};
 const FORM_FIELD_ERRORS = {};
 const ERROR_IMAGE = "/assets/close-error.png";
 const SUCCESS_IMAGE = "/assets/successful-input.png";
+const LANGUAGE_MAP = {
+  en: "English",
+  sw: "Swahili",
+  ar: "Arabic",
+  es: "Spanish",
+  pt: "Portuguesse",
+  de: "German",
+};
 
 /**
  * html element references
@@ -47,6 +55,9 @@ const fullNameInputField = document.getElementById("fullName");
 const usernameInputField = document.getElementById("username");
 const showPasswordTriggerElement = document.getElementById(
   "showPasswordTrigger"
+);
+const footerLanguageSelectorSelectElement = document.getElementById(
+  "footerLanguageSelectorSelect"
 );
 
 const formFieldIds = [
@@ -137,6 +148,20 @@ const handleFormFieldChange = (fieldName, value) => {
   }
   validateWholeForm();
 };
+
+/**
+ * listen for language change
+ */
+footerLanguageSelectorSelectElement.addEventListener("change", (ev) => {
+  /**
+   * This is what is called object destructuring in JavaScript and TypeScript
+   * and I invite you to check out this class on this topic.
+   */
+  const {
+    target: { value: activeLanguage },
+  } = ev;
+  alert(`Your new language is now ${LANGUAGE_MAP[activeLanguage]}`);
+});
 
 /**
  * FORM VALIDATORS

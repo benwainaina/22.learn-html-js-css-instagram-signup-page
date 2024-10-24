@@ -266,6 +266,7 @@ body {
   flex-direction: column;
   align-items: center;
   row-gap: 20px;
+  padding-bottom: 64px;
 }
 
 .footer-links {
@@ -286,6 +287,17 @@ body {
   color: var(--link-color-two);
   font-family: var(--system-one);
   font-size: 13px;
+}
+
+.footer-language-selector select {
+  color: var(--link-color-two);
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.footer-language-selector select:focus {
+  outline: none;
 }
 
 /* shared styles */
